@@ -5,18 +5,25 @@
 
 #include "fileworker.h"
 
-void send_file(const int sockfd) {
-
-  printf("%s", "Enter the name of the file\n");
-  char filename[SIZE] = "";
+int read_name_of_file(char filename[SIZE]) {
   fgets(filename, SIZE, stdin);
 
   if (strlen(filename) == 1) {
-    return;
+    return -1;
   }
   filename[strlen(filename) - 1] = '\0';
+  return 1;
+}
 
+void send_file(const int sockfd) {
+
+  printf("%s", "Enter the name of the file (on server)\n");
+  char filename[SIZE] = "";
+  read_name_of_file(filename);
   send(sockfd, filename, sizeof(filename), 0);
+
+  printf("%s", "Enter the name of the file (local)\n");
+  read_name_of_file(filename);
 
   FILE *fp = fopen(filename, "r");
   if (fp == NULL) {
