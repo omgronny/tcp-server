@@ -1,6 +1,6 @@
 all:
-	g++ client_folder/*.c -o client_folder/client
-	g++ server_folder/*.c -o server_folder/server
+	g++ client_folder/*.c -pthread -o client_folder/client
+	g++ server_folder/*.c -pthread -o server_folder/server
 
 clean:
 	rm -f client_folder/client
